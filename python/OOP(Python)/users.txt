@@ -1,0 +1,2 @@
+lib01,Librarian,lib@example.com
+mem01,Alice,alice@example.com

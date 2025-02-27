@@ -1,0 +1,21 @@
+[project]
+name = "crew-flow"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "arman229", email = "armanashraf015@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "crewai>=0.102.0",
+]
+
+[project.scripts]
+crew-flow = "crew_flow:main"
+crewfunccmd = "main:crewfun"
+generatejokes = 'joke_generator.joke_generator:jokegenerator'
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

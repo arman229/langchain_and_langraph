@@ -1,0 +1,2 @@
+bk01,The Catcher in the Rye,J.D. Salinger,True
+bk02,To Kill a Mockingbird,Harper Lee,True

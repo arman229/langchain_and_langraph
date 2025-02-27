@@ -1,0 +1,45 @@
+
+# Python-related
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.swo
+*.log
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+
+# Environment variables
+.env
+.evn*
+.env.local
+.env.development
+.env.production
+
+# CrewAI & LangGraph
+*.lock
+uv.lock
+# MyPy cache (Type Checking)
+.mypy_cache/
+# VS Code settings
+.vscode/
+*.code-workspace
+
+# JetBrains IDEs (PyCharm, IntelliJ)
+.idea/
+*.iml
+
+# OS-specific
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
