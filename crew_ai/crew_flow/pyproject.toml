@@ -15,6 +15,9 @@ dependencies = [
 crew-flow = "crew_flow:main"
 crewfunccmd = "main:crewfun"
 generatejokes = 'joke_generator.joke_generator:jokegenerator'
+generatejokes_with_schema = 'joke_generator_with_schema.joke_generator:jokegenerator'
+finalroutescmd = "routing.route:finalroutes"
+finalroutesplotcmd = "routing.route:finalroutesplot"
 
 [build-system]
 requires = ["hatchling"]

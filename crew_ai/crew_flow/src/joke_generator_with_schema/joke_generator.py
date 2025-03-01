@@ -16,24 +16,23 @@ class JokeGenerator(Flow):
         response = completion(api_key=self.API_KEY,model=self.model, messages=messages)
         result = response['choices'][0]['message']['content']
         print(result)
-        return result
+        self.state['total_jokes'] = result
     
     @listen(no_of_jokes)
-    def generate_jokes(self,no_of_jokes):
-        messages = [{"role": "user", "content": f"Generate {no_of_jokes} jokes."}]
+    def generate_jokes(self):
+        messages = [{"role": "user", "content": f"Generate {self.state['total_jokes']} jokes."}]
         response = completion(api_key=self.API_KEY,model=self.model, messages=messages)
         result = response['choices'][0]['message']['content']
         print(result)
-        return result
+        self.state['joke_list'] = result
         
         
     @listen(generate_jokes)
-    def best_jokes(self,jokes):
-        messages = [{"role": "user", "content": f"Here is a list of jokes: {jokes}. Please select the best 1 joke."}]
+    def best_jokes(self):
+        messages = [{"role": "user", "content": f"Here is a list of jokes: {self.state['joke_list']}. Please select the best 1 joke."}]
         response = completion(api_key=self.API_KEY,model=self.model, messages=messages)
         result = response['choices'][0]['message']['content']
-        print(result)
-        return result
+        print(result) 
       
       
   
