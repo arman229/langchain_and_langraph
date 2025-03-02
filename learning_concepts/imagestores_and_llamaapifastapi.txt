@@ -1,0 +1,224 @@
+
+
+# import os
+# import shutil
+# from app.model import *
+# from app.settings import *
+# from app.db_connections import *
+# from typing import Any, Optional, List
+# from fastapi import APIRouter, Depends, HTTPException, status, Form, UploadFile, File
+# import uuid
+# inventory_router = APIRouter()
+# from urllib.parse import urlparse
+ 
+
+# # def generate_image_filename(
+# #     product_name: str, img_index: int, img_filename: Optional[str] = None
+# # ) -> str:
+# #     return f"product_{product_name}_{img_filename}_{img_index}.png"
+
+
+# # @inventory_router.post("/product", tags=["inventory"])
+# # async def create_product(
+# #     db: DB_SESSION,
+# #     name: Annotated[
+# #         str,
+# #         Form(min_length=3, description="Product name must be between 3  characters"),
+# #     ],
+# #     description: Annotated[
+# #         str, Form(description="Status can only be active, or draft")
+# #     ],
+# #     price: Annotated[float, Form(gt=0, description="Price must be greater than 0")],
+# #     stock: Annotated[int, Form(gt=0, description="Stock must be a positive integer")],
+# #     featured: Annotated[
+# #         bool, Form(description="Boolean to determine if product is featured")
+# #     ],
+# #     active: Annotated[bool, Form(description="Boolean to determine product status")],
+# #     category_id: Annotated[
+# #         int, Form(gt=0, description="Category ID must be a positive integer")
+# #     ],
+# #     images: List[UploadFile] = File(...),
+# # ):
+
+# #     category = db.get(Category, category_id)
+# #     if not category:
+# #         raise HTTPException(status_code=404, detail="Category not found")
+
+# #     new_product = Product(
+# #         name=name,
+# #         description=description,
+# #         price=price,
+# #         featured=featured,
+# #         category_id=category_id,
+# #         stock=stock,
+# #         status=status,
+# #     )
+
+# #     image_urls = []
+# #     for index, img in enumerate(images):
+# #         image_filename = str(uuid.uuid4())+".png"
+# #         image_path = os.path.join(UPLOAD_DIR, image_filename)
+# #         with open(image_path, "wb") as file:
+# #             file.write(await img.read())
+# #         image_url = f"http://localhost:8000/{UPLOAD_DIR}/{image_filename}"
+# #         image_urls.append(image_url)
+# #     new_product.images = image_urls
+# #     db.add(new_product)
+# #     db.commit()
+# #     db.refresh(new_product)
+
+# #     return {
+# #         "msg": "Product created successfully",
+# #         "id": new_product.id,
+# #         "image_url": image_urls,
+# #     }
+
+
+# # @inventory_router.delete("/product/{product_id}", tags=["inventory"])
+# # async def delete_product(
+# #     product_id: int,
+# #     db: Session = Depends(get_db),
+# # ):
+# #     product = db.get(Product, product_id)
+# #     if not product:
+# #         raise HTTPException(status_code=400, detail="Product not found")
+# #     for image_url in product.images: 
+# #         parsed_url = urlparse(image_url)
+# #         file_name = os.path.basename(parsed_url.path )
+# #         file_path = os.path.join(UPLOAD_DIR,  image_url)
+# #         if os.path.exists(file_path):
+# #             os.remove(file_path)  # Remove the file
+# #         else:
+# #             print(f"File {file_path} does not exist.")
+# #     db.delete(product)
+# #     db.commit()
+# #     return {"message": "Product deleted successfully"}
+
+
+# # @inventory_router.put("/product/{product_id}", tags=["inventory"])
+# # async def update_product(
+# #     db: DB_SESSION,
+# #     product_id: int,
+# #     name: Annotated[
+# #         str, Form(min_length=3, description="Product name must be between 3 characters")
+# #     ],
+# #     description: Annotated[
+# #         str,
+# #         Form(min_length=10, description="Description must be at least 10 characters"),
+# #     ],
+# #     stock: Annotated[int, Form(gt=0, description="Stock must be a positive integer")],
+# #     active: Annotated[
+# #         bool, Form(description="Boolean to determine product status active, or draft")
+# #     ],
+# #     price: Annotated[float, Form(gt=0, description="Price must be greater than 0")],
+# #     featured: Annotated[
+# #         bool, Form(description="Boolean to determine if product is featured")
+# #     ],
+# #     category_id: Annotated[
+# #         int, Form(gt=0, description="Category ID must be a positive integer")
+# #     ],
+# #     images: Optional[List[UploadFile]] = File(None),
+# # ):
+# #     product = db.get(Product, product_id)
+# #     if not product:
+# #         raise HTTPException(status_code=404, detail="Product not found")
+
+# #     old_name = product.name
+# #     if name and name != old_name:
+# #         existing_product = db.exec(select(Product).where(Product.name == name)).first()
+# #         if existing_product and existing_product.id != product_id:
+# #             raise HTTPException(status_code=400, detail="Product name already exists")
+# #         product.name = name
+# #         old_dir = os.path.join(UPLOAD_DIR, f"product_{old_name}")
+# #         new_dir = os.path.join(UPLOAD_DIR, f"product_{name}")
+# #         if os.path.exists(old_dir):
+# #             os.rename(old_dir, new_dir)
+# #         else:
+# #             os.makedirs(new_dir, exist_ok=True)
+
+# #         product.description = description
+# #         product.stock = stock
+# #         product.active = active
+# #         product.price = price
+# #         product.featured = featured
+# #         category = db.get(Category, category_id)
+# #         if not category:
+# #             raise HTTPException(status_code=404, detail="Category not found")
+# #         product.category_id = category_id
+
+# #     product_dir = ensure_product_directory(product.name)
+
+# #     if images:
+# #         if product.images:
+# #             for old_img in product.images:
+# #                 old_img_path = os.path.join(
+# #                     UPLOAD_DIR,
+# #                     f"product_{product.name}",
+# #                     os.path.basename(old_img),
+# #                 )
+# #                 if os.path.exists(old_img_path):
+# #                     os.remove(old_img_path)
+
+# #         image_urls = []
+# #         for index, img in enumerate(images):
+# #             img_filename = generate_image_filename(
+# #                 product_name=product.name,
+# #                 img_index=index + 1,
+# #                 img_filename=img.filename,
+# #             )
+# #             image_path = os.path.join(product_dir, img_filename)
+# #             with open(image_path, "wb") as file:
+# #                 file.write(await img.read())
+
+# #             img_url = (
+# #                 f"http://localhost:8000/uploads/product_{product.name}/{img_filename}"
+# #             )
+# #             image_urls.append(img_url)
+
+# #         product.images = image_urls
+
+# #     db.commit()
+# #     db.refresh(product)
+
+# #     return {
+# #         "msg": f"Product with ID {product_id} updated successfully",
+# #         "id": product.id,
+# #     }
+
+
+# from fastapi import FastAPI, HTTPException
+# from pydantic import BaseModel
+# import requests
+
+# # Initialize FastAPI app
+# app = FastAPI()
+
+# # Define the base URL for the locally running Ollama instance
+# ollama_url = "https://b95b-34-127-54-49.ngrok-free.app/"
+
+# # Define the query model to accept user input
+# class QueryModel(BaseModel):
+#     prompt: str
+
+# # Function to query the LLaMA API
+# def query_ollama(prompt, model="llama3.1"):
+#     data = {
+#         "prompt": prompt,
+#         "model": model,
+#         "stream": False
+#     }
+
+#     # Send request to the locally running LLaMA API
+#     response = requests.post(f"{ollama_url}/api/generate", json=data)
+
+#     if response.status_code == 200:
+#         return response.json().get("response", "No response found")
+#     else:
+#         raise HTTPException(status_code=response.status_code, detail=response.text)
+ 
+# # API route to handle the chatbot conversation
+# @app.post("/chatbot/")
+# def chatbot(query: QueryModel):
+#     # Call the query_ollama function to generate a response
+#     response = query_ollama('hi')
+#     return {"response": response}
