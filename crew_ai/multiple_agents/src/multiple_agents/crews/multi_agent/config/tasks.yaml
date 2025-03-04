@@ -1,0 +1,21 @@
+generate_questions:
+  description: >
+    Generate {no_of_questions} multiple-choice questions (MCQs) on the topic: {topic}.
+    The questions must be logically structured, relevant, and technically accurate.
+  expected_output: >
+    A JSON list of {no_of_questions} dictionaries, where each dictionary contains:
+    - "question": The MCQ question.
+    - "options": A list of four possible answers.
+  agent: question_generator
+
+generate_answers:
+  description: >
+    Generate correct answers for the questions created by the Question Generator.
+    The answers must be precise, logically sound, and formatted for multiple-choice questions (MCQs).
+  expected_output: >
+    A JSON list of {no_of_questions} dictionaries, where each dictionary contains:
+    - "question": The original MCQ question.
+    - "options":  The original  list of four possible answers.
+    - "answer": The correct answer from the provided options.
+    - "explanation": A brief explanation of why the answer is correct.
+  agent: answer_generator
