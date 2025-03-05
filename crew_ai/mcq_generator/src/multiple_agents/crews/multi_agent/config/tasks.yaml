@@ -1,0 +1,11 @@
+task_qa_generator:
+  description: >
+    Generate {no_of_questions} multiple-choice questions (MCQs) on the topic: {topic} and then generate the correct answers with explanations. Each question must be logically structured, relevant, and technically accurate.
+  expected_output: >
+    A JSON list of {no_of_questions} dictionaries, where each dictionary contains:
+    - "question": The MCQ question.
+    - "options": A list of four possible answers.
+    - "answer": The correct answer from the provided options.
+    - "explanation": A brief explanation of why the answer is correct.
+  agent: qa_generator
+ 

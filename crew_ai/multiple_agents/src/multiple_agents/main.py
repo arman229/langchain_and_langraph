@@ -29,7 +29,7 @@ class AgentFlow(Flow[AgentState]):
         result = (
             MultiAgent()
             .crew()
-            .kickoff(inputs={"no_of_questions": self.state.no_of_questions, "topic": 'Python'})
+            .kickoff(inputs={"no_of_questions": self.state.no_of_questions, "topic": 'General Math'})
         )
 
         print("Questions generated", result.raw)
