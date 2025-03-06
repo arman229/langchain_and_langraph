@@ -1,15 +1,17 @@
 from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task
 import os 
-
+from crewai import LLM
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 MODEL = os.environ.get("MODEL")
 
-gemini_llm = LLM(
-    model=MODEL,
-    api_key=GEMINI_API_KEY,
-    temperature=0,
-)
+localllm = LLM(model="ollama/deepseek-r1:1.5b", base_url="http://localhost:11434")
+
+# gemini_llm = LLM(
+#     model=MODEL,
+#     api_key=GEMINI_API_KEY,
+#     temperature=0,
+# )
 
 @CrewBase
 class PoemCrew: 
@@ -18,7 +20,7 @@ class PoemCrew:
 
     @agent
     def poem_writer(self) -> Agent:
-        return Agent(config=self.agents_config['poem_writer'], llm=gemini_llm)
+        return Agent(config=self.agents_config['poem_writer'], llm=localllm)
     
    
     @task

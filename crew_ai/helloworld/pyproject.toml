@@ -1,0 +1,15 @@
+[project]
+name = "helloworld"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "aiohttp>=3.11.13",
+    "chainlit>=2.2.1",
+    "langchain-core>=0.3.41",
+    "langchain-google-genai>=2.0.11",
+    "langgraph>=0.3.5",
+    "litellm>=1.63.0",
+    "openai>=1.65.4",
+]
