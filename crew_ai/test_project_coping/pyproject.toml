@@ -1,0 +1,24 @@
+[project]
+name = "poem-generator"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "arman229", email = "armanashraf015@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "crewai>=0.102.0",
+    "google-generativeai",
+    "mem0ai>=0.1.66",
+    "pydantic>=2.10.6",
+]
+
+[project.scripts]
+poem-generator = "poem_generator:main"
+final_poem_generator = "poem_generator.main:kickoff"
+final_poem_generator_with_plot = "poem_generator.main:plot"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
