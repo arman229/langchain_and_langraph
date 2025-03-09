@@ -1,8 +1,8 @@
 import random
 from pydantic import BaseModel
 from crewai.flow.flow import listen, start, Flow
-from poem_generator.crews.poem_generator import Personal_crew
-from poem_generator.crews.tool_agent import crew
+from memory_and_external_tools.crews.tool_agent import crew
+from memory_and_external_tools.crews.first_crew import Personal_crew
 
 
 class FinalAns(Flow):
@@ -19,10 +19,10 @@ class FinalAns(Flow):
 
 
 def kickoff():
-    final_poem_flow = FinalAns()
-    final_poem_flow.kickoff()
+    final_flow = FinalAns()
+    final_flow.kickoff()
 
 
 def plot():
-    final_poem_flow = FinalAns()
-    final_poem_flow.plot()
+    final_flow = FinalAns()
+    final_flow.plot()

@@ -30,7 +30,7 @@ google_embedder = {
     },
 }
 
-content = "Users name is Muhammad Qasim. He is 30 years old and lives in Karchi, Pakistan. He is working as Chief Data Scientist at CancerClarity LLC"
+content = "Hi, I'm arman . I am a student of PIAIC . I want to become a world level AI developer .I am from pakistan"
 string_source = StringKnowledgeSource(
     content=content,
 )
@@ -38,8 +38,8 @@ string_source = StringKnowledgeSource(
 
 @CrewBase
 class Personal_crew:
-    agents_config = "configs/agents.yaml"
-    tasks_config = "configs/tasks.yaml"
+    agents_config = "config/agents.yaml"
+    tasks_config = "config/tasks.yaml"
 
     @agent
     def personal_agent(self) -> Agent:
