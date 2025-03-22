@@ -43,3 +43,10 @@ desktop.ini
 build/
 dist/
 *.egg-info/
+**/*.mp4
+*.mp4
+# Ignore Generated_images and all its contents
+Generated_images/
+
+# Ignore Generated_voice and all its contents
+Generated_voice/
