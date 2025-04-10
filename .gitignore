@@ -38,6 +38,7 @@ uv.lock
 .DS_Store
 Thumbs.db
 desktop.ini
+learning_concepts/generate_images_free.ipynb
 
 # Build artifacts
 build/
