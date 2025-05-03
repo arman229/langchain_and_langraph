@@ -1,0 +1,18 @@
+suggest_job_title_task:
+  description: >
+    Given the following candidate details:
+    
+    Professional Summary: {Professional Summary}
+    Work History: {Professional Experience}
+    Skills: {Skills}
+    Projects: {Projects}
+    Job Title: {Job Title}
+
+    If the candidate has already provided a job title in their CV, use that information.
+    If not, assume its value is None.
+    Please suggest the most appropriate job title for this candidate that reflects their expertise, experience, and project work.
+  expected_output: >
+    A single job title recommendation, for example:
+    - Senior Software Engineer
+    - FullStack Developer
+  agent: job_title_suggester

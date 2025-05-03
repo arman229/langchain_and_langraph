@@ -1,0 +1,19 @@
+[project]
+name = "matching-job-profile"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "arman229", email = "armanashraf015@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "crewai[tools]>=0.105.0",
+]
+
+[project.scripts]
+matching-job-profile = "matching_job_profile:main"
+kickoff = "matching_job_profile.main:kickoff"
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

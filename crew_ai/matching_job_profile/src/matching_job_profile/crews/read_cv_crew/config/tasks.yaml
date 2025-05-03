@@ -1,0 +1,17 @@
+read_cv_task:
+  description: >
+    Extract relevant information from the given CV. Focus on skills, experience,
+    education, and key achievements.
+    Ensure to capture the candidate's professional summary, technical skills,
+    work history, and educational background.
+
+    CV file: {path_to_cv}
+  expected_output: >
+    A structured summary of the CV, including:
+    - Professional Summary
+    - Technical Skills
+    - Work History
+    - Education
+    - Key Achievements
+
+ 

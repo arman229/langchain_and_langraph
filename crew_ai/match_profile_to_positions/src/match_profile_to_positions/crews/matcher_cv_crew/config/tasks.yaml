@@ -1,0 +1,19 @@
+cv_reader_agent:
+  description: >
+    Extract relevant information from the given CV. Focus on skills, experience,
+    education, and key achievements.
+    Ensure to capture the candidate's professional summary, technical skills,
+    work history, and educational background.
+     
+    CV file: {path_to_cv}
+  expected_output: >
+     A structured summmary of hte CV having following values
+      - Professional Summary
+      - Professional Experience
+      - Skills
+      - Education
+      - Projects
+      - Country Name
+      - Key Achivement 
+
+  agent: cv_reader
